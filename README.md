@@ -24,5 +24,6 @@ This repository contains a small Discord bot built with [`discord.js`](https://d
    node index.js
    ```
 
-The bot currently supports a single `/ping` command that replies with `Pong!` and
-shows how long it took to respond.
+The bot currently supports a single `/ping` command that replies with
+`🏓 Pong!` followed by the response time, for example `🏓 Pong! Tempo de
+resposta: 20ms`.
