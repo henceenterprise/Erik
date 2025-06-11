@@ -1,7 +1,7 @@
-import 'dotenv/config';
-import { Client, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
-import { readdir } from 'fs/promises';
-import { connectDb } from './database.js';
+import "dotenv/config";
+import { Client, GatewayIntentBits, Events, REST, Routes } from "discord.js";
+import { readdir } from "fs/promises";
+import { connectDb } from "./database.js";
 
 /**
  * Main file that starts the bot. The explanations below use simple language so
@@ -17,8 +17,8 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent
-  ]
+    GatewayIntentBits.MessageContent,
+  ],
 });
 // Record the start time so commands like /uptime can use it
 client.startTime = Date.now();
@@ -35,19 +35,24 @@ client.commandsList = commands;
  * knows what to do when using slash commands.
  * @returns {Promise<void>}
  */
-async function loadCommands(dir = new URL('./commands/', import.meta.url)) {
+async function loadCommands(dir = new URL("./commands/", import.meta.url)) {
   const entries = await readdir(dir, { withFileTypes: true });
   for (const entry of entries) {
     if (entry.isDirectory()) {
       await loadCommands(new URL(`./${entry.name}/`, dir));
       continue;
     }
-    if (!entry.name.endsWith('.js') || entry.name.endsWith('.test.js')) continue;
+    if (!entry.name.endsWith(".js") || entry.name.endsWith(".test.js"))
+      continue;
 
     const mod = await import(new URL(entry.name, dir));
     const { data, execute } = mod;
 
     if (data && execute) {
+      if (handlers.has(data.name)) {
+        console.warn(`⚠️ Comando duplicado ignorado: ${data.name}`);
+        continue;
+      }
       commands.push(data.toJSON());
       handlers.set(data.name, execute);
     }
@@ -59,16 +64,19 @@ async function loadCommands(dir = new URL('./commands/', import.meta.url)) {
  * @returns {Promise<void>}
  */
 async function deployCommands() {
-  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+  const rest = new REST({ version: "10" }).setToken(process.env.DISCORD_TOKEN);
   try {
-    console.log('Updating slash commands...');
+    console.log("Updating slash commands...");
     const data = await rest.put(
-      Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
-      { body: commands },
+      Routes.applicationGuildCommands(
+        process.env.CLIENT_ID,
+        process.env.GUILD_ID
+      ),
+      { body: commands }
     );
     console.log(`Registered ${data.length} commands.`);
   } catch (err) {
-    console.error('Failed to register commands:', err);
+    console.error("Failed to register commands:", err);
   }
 }
 
@@ -78,7 +86,7 @@ client.once(Events.ClientReady, () =>
 );
 
 // Every time someone uses a command, find the correct handler
-client.on(Events.InteractionCreate, async interaction => {
+client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
   const command = handlers.get(interaction.commandName);
   if (command) {
@@ -87,14 +95,16 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 // Gain 1 XP for each message a user sends
-client.on(Events.MessageCreate, async message => {
+client.on(Events.MessageCreate, async (message) => {
   if (message.author.bot || !message.guild) return;
   const db = await connectDb();
-  await db.collection('users').updateOne(
-    { userId: message.author.id, guildId: message.guild.id },
-    { $inc: { xp: 1 } },
-    { upsert: true }
-  );
+  await db
+    .collection("users")
+    .updateOne(
+      { userId: message.author.id, guildId: message.guild.id },
+      { $inc: { xp: 1 } },
+      { upsert: true }
+    );
 });
 
 (async () => {
@@ -107,9 +117,9 @@ client.on(Events.MessageCreate, async message => {
   client
     .login(process.env.DISCORD_TOKEN)
     .then(() => {
-      console.log('Bot started.');
+      console.log("Bot started.");
     })
-    .catch(err => {
-      console.error('Failed to start the bot:', err);
+    .catch((err) => {
+      console.error("Failed to start the bot:", err);
     });
 })();

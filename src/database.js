@@ -11,7 +11,7 @@ let db;
  */
 export async function connectDb() {
   if (!db) {
-    client = new MongoClient(process.env.MONGO_URI + "?retryWrites=true&w=majority&appName=ERIK-DB");
+    client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
     db = client.db();
   }
