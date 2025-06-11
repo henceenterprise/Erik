@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "start": "node index.js",
+    "deploy": "node deploy-commands.js",
+    "dev": "nodemon"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
     "dotenv": "^16.5.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.10"
   }
 }
