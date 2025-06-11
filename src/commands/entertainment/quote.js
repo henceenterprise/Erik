@@ -7,16 +7,16 @@ const quotes = JSON.parse(
 );
 
 /**
- * Defines the `/inspiration` command.
+ * Defines the `/quote` command.
  * It sends a random inspirational quote.
  * @type {import('discord.js').SlashCommandBuilder}
  */
 export const data = new SlashCommandBuilder()
-  .setName('inspiration')
+  .setName('quote')
   .setDescription('Replies with an inspirational quote.');
 
 /**
- * Runs when someone uses `/inspiration`.
+ * Runs when someone uses `/quote`.
  * @param {import('discord.js').CommandInteraction} interaction
  * @returns {Promise<void>}
  */
