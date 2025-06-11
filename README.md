@@ -17,9 +17,9 @@ This project contains a small Discord bot. It responds to a few simple commands 
    ```env
    DISCORD_TOKEN=your-bot-token
    CLIENT_ID=your-application-id
-  GUILD_ID=testing-server-id
-  MONGO_URI=mongodb://localhost:27017/your-db
-  ```
+   GUILD_ID=testing-server-id
+   MONGO_URI=mongodb://localhost:27017/your-db
+   ```
 3. Start the bot:
    ```bash
    npm start

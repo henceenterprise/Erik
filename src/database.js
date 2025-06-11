@@ -1,19 +1,29 @@
-import { MongoClient } from 'mongodb';
-import 'dotenv/config';
+// mongo.js
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
-let client;
-let db;
+const uri = process.env.MONGODB_URI;
 
-/**
- * Connects to MongoDB using the connection string in `MONGO_URI`.
- * The same connection is reused on subsequent calls.
- * @returns {Promise<import('mongodb').Db>}
- */
-export async function connectDb() {
-  if (!db) {
-    client = new MongoClient(process.env.MONGO_URI);
-    await client.connect();
-    db = client.db();
+export const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
   }
-  return db;
+});
+
+export async function connectToDB() {
+  try {
+    await client.connect();
+    console.log("✅ MongoDB conectado!");
+  } catch (error) {
+    console.error("❌ Erro ao conectar ao MongoDB:", error);
+  }
+}
+export async function disconnectFromDB() {
+  try {
+    await client.close();
+    console.log("✅ MongoDB desconectado!");
+  } catch (error) {
+    console.error("❌ Erro ao desconectar do MongoDB:", error);
+  }
 }
