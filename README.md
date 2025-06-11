@@ -31,5 +31,7 @@ While developing you can run `npm run dev` so the bot restarts automatically whe
 - `/ping` – the bot replies "Pong!" and shows how long the response took.
 - `/help` – sends a list with all commands.
 - `/giff` – posts a random GIF just for fun.
+- `/uptime` – shows how long the bot has been running.
+- `/status` – displays a simple online status with ping information.
 
 Have fun creating new commands!

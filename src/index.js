@@ -19,6 +19,8 @@ const client = new Client({
     GatewayIntentBits.MessageContent
   ]
 });
+// Record the start time so commands like /uptime can use it
+client.startTime = Date.now();
 
 /** List of commands the bot knows. */
 const commands = [];
