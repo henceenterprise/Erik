@@ -19,5 +19,9 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
-client.login(process.env.DISCORD_TOKEN);
-console.log('Bot iniciado.');
+try {
+  await client.login(process.env.DISCORD_TOKEN);
+  console.log('Bot iniciado.');
+} catch (err) {
+  console.error('Falha ao iniciar o bot:', err);
+}
