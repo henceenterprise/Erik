@@ -4,7 +4,6 @@ const gifs = [
   'https://media.giphy.com/media/ASd0Ukj0y3qMM/giphy.gif',
   'https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif',
   'https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif',
-  'https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif',
   'https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif'
 ];
 
