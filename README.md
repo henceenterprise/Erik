@@ -19,13 +19,11 @@ This repository contains a small Discord bot built with [`discord.js`](https://d
    CLIENT_ID=your-application-id
    GUILD_ID=your-testing-server-id
    ```
-3. Deploy slash commands to your server:
-   ```bash
-   node deploy-commands.js
-   ```
-4. Start the bot:
+3. Start the bot (commands are deployed automatically):
    ```bash
    node index.js
    ```
 
-The bot currently supports a single `/ping` command that replies with `Pong!`.
+The bot currently supports a single `/ping` command that replies with
+`🏓 Pong!` followed by the response time, for example `🏓 Pong! Tempo de
+resposta: 20ms`.
