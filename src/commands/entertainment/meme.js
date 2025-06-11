@@ -1,11 +1,10 @@
+import { readFileSync } from 'fs';
 import { SlashCommandBuilder } from 'discord.js';
 
-const memes = [
-  'https://i.imgflip.com/1bij.jpg',
-  'https://i.imgflip.com/26am.jpg',
-  'https://i.imgflip.com/3vzej.jpg',
-  'https://i.imgflip.com/30b1gx.jpg'
-];
+/** Meme image URLs loaded from a JSON file. */
+const memes = JSON.parse(
+  readFileSync(new URL('./memes.json', import.meta.url), 'utf8')
+);
 
 /**
  * Defines the `/meme` command.

@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/help.js';
+import { execute } from '../../src/commands/general/help.js';
 
 describe('help command', () => {
   test('responds with an embed containing commands', async () => {

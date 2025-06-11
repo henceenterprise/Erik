@@ -5,7 +5,7 @@ import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { data as pingData } from './commands/ping.js';
+import { data as pingData } from './commands/general/ping.js';
 /** Commands to be registered */
 const commands = [pingData.toJSON()];
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);

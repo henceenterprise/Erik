@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/giff.js';
+import { execute } from '../../src/commands/entertainment/giff.js';
 
 // The GIF list is not exported, so we rely on the reply content
 const GIF_REGEX = /^https:\/\/media\.giphy\.com\/media\/.+\.gif$/;

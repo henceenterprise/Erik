@@ -1,11 +1,10 @@
+import { readFileSync } from 'fs';
 import { SlashCommandBuilder } from 'discord.js';
 
-const quotes = [
-  'Believe in yourself and all that you are.',
-  'The only limit to our realization of tomorrow is our doubts of today.',
-  'You are never too old to set another goal or to dream a new dream.',
-  'Every day may not be good, but there is something good in every day.'
-];
+/** List of inspirational quotes loaded from JSON. */
+const quotes = JSON.parse(
+  readFileSync(new URL('./quotes.json', import.meta.url), 'utf8')
+);
 
 /**
  * Defines the `/inspiration` command.

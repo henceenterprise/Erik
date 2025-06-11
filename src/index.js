@@ -34,13 +34,16 @@ client.commandsList = commands;
  * knows what to do when using slash commands.
  * @returns {Promise<void>}
  */
-async function loadCommands() {
-  const dir = new URL('./commands/', import.meta.url);
-  const files = await readdir(dir);
-  for (const file of files) {
-    if (!file.endsWith('.js') || file.endsWith('.test.js')) continue;
+async function loadCommands(dir = new URL('./commands/', import.meta.url)) {
+  const entries = await readdir(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      await loadCommands(new URL(`./${entry.name}/`, dir));
+      continue;
+    }
+    if (!entry.name.endsWith('.js') || entry.name.endsWith('.test.js')) continue;
 
-    const mod = await import(new URL(`./commands/${file}`, import.meta.url));
+    const mod = await import(new URL(entry.name, dir));
     const { data, execute } = mod;
 
     if (data && execute) {
