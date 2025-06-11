@@ -16,8 +16,11 @@ const handlers = new Map();
 async function loadCommands() {
   const files = await readdir('./commands');
   for (const file of files) {
-    if (!file.endsWith('.js')) continue;
-    const { data, execute } = await import(`./commands/${file}`);
+    if (!file.endsWith('.js') || file.endsWith('.test.js')) continue;
+
+    const mod = await import(`./commands/${file}`);
+    const { data, execute } = mod;
+
     if (data && execute) {
       commands.push(data.toJSON());
       handlers.set(data.name, execute);
