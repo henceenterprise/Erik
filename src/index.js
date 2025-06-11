@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { Client, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
 import { readdir } from 'fs/promises';
+import { connectDb } from './database.js';
 
 /**
  * Main file that starts the bot. The explanations below use simple language so
@@ -85,7 +86,20 @@ client.on(Events.InteractionCreate, async interaction => {
   }
 });
 
+// Gain 1 XP for each message a user sends
+client.on(Events.MessageCreate, async message => {
+  if (message.author.bot || !message.guild) return;
+  const db = await connectDb();
+  await db.collection('users').updateOne(
+    { userId: message.author.id, guildId: message.guild.id },
+    { $inc: { xp: 1 } },
+    { upsert: true }
+  );
+});
+
 (async () => {
+  // Connect to the database before starting
+  await connectDb();
   // Load the commands and tell Discord before logging in
   await loadCommands();
   await deployCommands();
