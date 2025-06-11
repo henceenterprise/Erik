@@ -9,6 +9,6 @@ describe('ping command', () => {
       reply: jest.fn()
     };
     await execute(interaction);
-    expect(interaction.reply).toHaveBeenCalledWith('🏓 Pong! Tempo de resposta: 50ms');
+    expect(interaction.reply).toHaveBeenCalledWith('🏓 Pong! Response time: 50ms');
   });
 });
