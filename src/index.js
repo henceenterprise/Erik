@@ -2,6 +2,10 @@ import 'dotenv/config';
 import { Client, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
 import { readdir } from 'fs/promises';
 
+/**
+ * Discord client instance configured with basic intents.
+ * @type {import('discord.js').Client}
+ */
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -10,16 +14,23 @@ const client = new Client({
   ]
 });
 
+/** List of slash command data objects. */
 const commands = [];
+/** Map of command names to handler functions. */
 const handlers = new Map();
-client.commandsList = commands;
+client.commandsList = commands; // exposed for the help command
 
+/**
+ * Dynamically loads all command modules under src/commands.
+ * @returns {Promise<void>}
+ */
 async function loadCommands() {
-  const files = await readdir('./commands');
+  const dir = new URL('./commands/', import.meta.url);
+  const files = await readdir(dir);
   for (const file of files) {
     if (!file.endsWith('.js') || file.endsWith('.test.js')) continue;
 
-    const mod = await import(`./commands/${file}`);
+    const mod = await import(new URL(`./commands/${file}`, import.meta.url));
     const { data, execute } = mod;
 
     if (data && execute) {
@@ -29,6 +40,10 @@ async function loadCommands() {
   }
 }
 
+/**
+ * Registers slash commands with the Discord API for a single guild.
+ * @returns {Promise<void>}
+ */
 async function deployCommands() {
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
   try {
@@ -43,8 +58,12 @@ async function deployCommands() {
   }
 }
 
-client.once(Events.ClientReady, () => console.log(`Bot pronto — ${client.user.tag}`));
+// Log when the bot becomes ready
+client.once(Events.ClientReady, () =>
+  console.log(`Bot pronto — ${client.user.tag}`)
+);
 
+// Route incoming slash command interactions to their handlers
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
   const command = handlers.get(interaction.commandName);
@@ -54,6 +73,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 (async () => {
+  // Load command modules and register them before logging in
   await loadCommands();
   await deployCommands();
 
