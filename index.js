@@ -12,6 +12,7 @@ const client = new Client({
 
 const commands = [];
 const handlers = new Map();
+client.commandsList = commands;
 
 async function loadCommands() {
   const files = await readdir('./commands');

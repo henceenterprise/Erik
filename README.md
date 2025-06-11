@@ -46,6 +46,6 @@ This uses the provided `nodemon.json` configuration to redeploy the slash
 commands and restart the bot whenever files in the `commands/` directory or
 `index.js` are modified.
 
-The bot currently supports a single `/ping` command that replies with
-`🏓 Pong!` followed by the response time, for example `🏓 Pong! Tempo de
-resposta: 20ms`.
+The bot currently supports the `/ping` and `/help` commands. `/ping` replies
+with `🏓 Pong!` followed by the response time while `/help` shows an
+embed listing all available commands.
