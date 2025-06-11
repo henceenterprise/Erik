@@ -1,51 +1,35 @@
-# Erik Discord Bot
+# Bot do Discord Erik
 
-This repository contains a small Discord bot built with [`discord.js`](https://discord.js.org/).
+Este projeto traz um bot bem pequeno para o Discord. Ele responde a alguns comandos simples que você digita começando com `/`.
 
-## Prerequisites
+## Você vai precisar
 
-- Node.js 18 or newer
-- A Discord application with a bot token
+- Node.js 18 ou mais novo
+- Um token de bot do Discord
 
-## Setup
+## Como colocar para funcionar
 
-1. Clone the repository and install dependencies:
+1. Baixe o código e instale os pacotes:
    ```bash
    npm install
    ```
-2. Create a `.env` file in the project root with the following variables:
+2. Crie um arquivo chamado `.env` na pasta principal e coloque suas chaves nele:
    ```env
-   DISCORD_TOKEN=your-bot-token
-   CLIENT_ID=your-application-id
-   GUILD_ID=your-testing-server-id
+   DISCORD_TOKEN=seu-token-do-bot
+   CLIENT_ID=seu-id-da-aplicacao
+   GUILD_ID=id-do-servidor-para-testes
    ```
-3. Start the bot (commands are deployed automatically):
+3. Inicie o bot:
    ```bash
    npm start
    ```
 
-## Development with nodemon
+Enquanto estiver programando, você pode usar `npm run dev` para que o bot reinicie sozinho sempre que você mudar um arquivo.
 
-For a smoother workflow during development you can use
-[nodemon](https://github.com/remy/nodemon) to automatically restart the bot
-whenever you change the source files.
+## Comandos
 
-Install it as a dev dependency:
+- `/ping` – o bot responde "Pong!" e mostra quanto tempo levou para responder.
+- `/help` – envia uma lista com todos os comandos.
+- `/giff` – manda um GIF aleatório só para animar.
 
-```bash
-npm install --save-dev nodemon
-```
-
-Then run the bot in watch mode with:
-
-```bash
-npm run dev
-```
-
-This uses the provided `nodemon.json` configuration to redeploy the slash
-commands and restart the bot whenever files in the `src/commands/` directory or
-`src/index.js` are modified.
-
-The bot currently supports the `/ping` and `/help` commands. `/ping` replies
-with `🏓 Pong!` followed by the response time while `/help` shows an
-embed listing all available commands.
+Divirta-se criando novos comandos!

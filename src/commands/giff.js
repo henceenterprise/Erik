@@ -8,7 +8,8 @@ const gifs = [
 ];
 
 /**
- * Slash command definition for `giff`.
+ * Define o comando `/giff`.
+ * Ele escolhe um GIF aleatório da lista e envia para o chat.
  * @type {import('discord.js').SlashCommandBuilder}
  */
 export const data = new SlashCommandBuilder()
@@ -16,7 +17,7 @@ export const data = new SlashCommandBuilder()
   .setDescription('Responde com um GIF aleatório.');
 
 /**
- * Handler for the `giff` command.
+ * Função executada quando alguém usa o `/giff`.
  * @param {import('discord.js').CommandInteraction} interaction
  * @returns {Promise<void>}
  */

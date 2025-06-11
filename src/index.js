@@ -3,7 +3,13 @@ import { Client, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
 import { readdir } from 'fs/promises';
 
 /**
- * Discord client instance configured with basic intents.
+ * Arquivo principal que inicia o bot. As explicações abaixo usam uma linguagem
+ * simples para que qualquer pessoa possa entender o que acontece.
+ */
+
+/**
+ * Cria o cliente do Discord, que é o nosso bot. Os "intents" dizem ao Discord
+ * que tipo de mensagens o bot quer receber.
  * @type {import('discord.js').Client}
  */
 const client = new Client({
@@ -14,14 +20,16 @@ const client = new Client({
   ]
 });
 
-/** List of slash command data objects. */
+/** Lista de comandos que o bot conhece. */
 const commands = [];
-/** Map of command names to handler functions. */
+/** Guarda as funções que executam cada comando. */
 const handlers = new Map();
-client.commandsList = commands; // exposed for the help command
+// Deixamos a lista acessível para o comando /help mostrar tudo
+client.commandsList = commands;
 
 /**
- * Dynamically loads all command modules under src/commands.
+ * Procura na pasta `src/commands` e carrega cada arquivo de comando.
+ * Assim o bot sabe o que fazer quando usamos as barras.
  * @returns {Promise<void>}
  */
 async function loadCommands() {
@@ -41,7 +49,7 @@ async function loadCommands() {
 }
 
 /**
- * Registers slash commands with the Discord API for a single guild.
+ * Envia para o Discord a lista de comandos para que apareçam no servidor.
  * @returns {Promise<void>}
  */
 async function deployCommands() {
@@ -58,12 +66,12 @@ async function deployCommands() {
   }
 }
 
-// Log when the bot becomes ready
+// Quando o bot termina de iniciar, avisamos no console
 client.once(Events.ClientReady, () =>
   console.log(`Bot pronto — ${client.user.tag}`)
 );
 
-// Route incoming slash command interactions to their handlers
+// Toda vez que alguém usar um comando, procuramos a função correta
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
   const command = handlers.get(interaction.commandName);
@@ -73,7 +81,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 (async () => {
-  // Load command modules and register them before logging in
+  // Carrega os comandos e avisa o Discord antes de fazer login
   await loadCommands();
   await deployCommands();
 

@@ -1,7 +1,8 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 
 /**
- * Slash command definition for `help`.
+ * Define o comando `/help`.
+ * Ele mostra uma lista com todos os comandos que o bot conhece.
  * @type {import('discord.js').SlashCommandBuilder}
  */
 export const data = new SlashCommandBuilder()
@@ -9,7 +10,8 @@ export const data = new SlashCommandBuilder()
   .setDescription('Mostra todos os comandos disponíveis.');
 
 /**
- * Handler for the `help` command.
+ * Função chamada quando alguém digita `/help`.
+ * Ela envia um embed contendo cada comando disponível.
  * @param {import('discord.js').CommandInteraction} interaction
  * @returns {Promise<void>}
  */
