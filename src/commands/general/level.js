@@ -28,3 +28,4 @@ export async function execute(interaction) {
     `${interaction.user.username}, you are level ${level} with ${xp} XP.`
   );
 }
+
