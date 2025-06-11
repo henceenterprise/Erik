@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/uptime.js';
+import { execute } from '../../src/commands/general/uptime.js';
 
 describe('uptime command', () => {
   test('responds with uptime in seconds', async () => {

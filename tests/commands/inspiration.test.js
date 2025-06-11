@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/inspiration.js';
+import { execute } from '../../src/commands/entertainment/inspiration.js';
 
 describe('inspiration command', () => {
   test('responds with an inspirational quote', async () => {

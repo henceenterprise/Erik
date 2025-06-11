@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/status.js';
+import { execute } from '../../src/commands/general/status.js';
 
 describe('status command', () => {
   test('responds with online message and ping', async () => {

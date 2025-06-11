@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from '../../src/commands/meme.js';
+import { execute } from '../../src/commands/entertainment/meme.js';
 
 const MEME_REGEX = /^https:\/\/i\.imgflip\.com\/.+\.(jpg|png)$/;
 
