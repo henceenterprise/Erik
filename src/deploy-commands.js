@@ -1,25 +1,25 @@
 /**
- * Script simples para registrar os comandos do bot.
+ * Simple script to register the bot commands.
  */
 import { REST, Routes } from 'discord.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
 import { data as pingData } from './commands/ping.js';
-/** Comandos que serão registrados */
+/** Commands to be registered */
 const commands = [pingData.toJSON()];
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
-// Registrar os comandos e sair
+// Register the commands and exit
 
 (async () => {
-  // Envia os comandos e encerra este script
+  // Send the commands and exit this script
   try {
-    console.log('Atualizando comandos slash...');
+    console.log('Updating slash commands...');
     const data = await rest.put(
       Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
       { body: commands },
     );
-    console.log(`Registrei ${data.length} comandos.`);
+    console.log(`Registered ${data.length} commands.`);
   } catch (err) {
     console.error(err);
   }

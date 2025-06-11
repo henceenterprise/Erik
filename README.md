@@ -1,35 +1,35 @@
-# Bot do Discord Erik
+# Erik Discord Bot
 
-Este projeto traz um bot bem pequeno para o Discord. Ele responde a alguns comandos simples que você digita começando com `/`.
+This project contains a small Discord bot. It responds to a few simple commands that you type beginning with `/`.
 
-## Você vai precisar
+## Requirements
 
-- Node.js 18 ou mais novo
-- Um token de bot do Discord
+- Node.js 18 or newer
+- A Discord bot token
 
-## Como colocar para funcionar
+## Getting Started
 
-1. Baixe o código e instale os pacotes:
+1. Download the code and install the packages:
    ```bash
    npm install
    ```
-2. Crie um arquivo chamado `.env` na pasta principal e coloque suas chaves nele:
+2. Create a file called `.env` in the project root and add your keys:
    ```env
-   DISCORD_TOKEN=seu-token-do-bot
-   CLIENT_ID=seu-id-da-aplicacao
-   GUILD_ID=id-do-servidor-para-testes
+   DISCORD_TOKEN=your-bot-token
+   CLIENT_ID=your-application-id
+   GUILD_ID=testing-server-id
    ```
-3. Inicie o bot:
+3. Start the bot:
    ```bash
    npm start
    ```
 
-Enquanto estiver programando, você pode usar `npm run dev` para que o bot reinicie sozinho sempre que você mudar um arquivo.
+While developing you can run `npm run dev` so the bot restarts automatically whenever you change a file.
 
-## Comandos
+## Commands
 
-- `/ping` – o bot responde "Pong!" e mostra quanto tempo levou para responder.
-- `/help` – envia uma lista com todos os comandos.
-- `/giff` – manda um GIF aleatório só para animar.
+- `/ping` – the bot replies "Pong!" and shows how long the response took.
+- `/help` – sends a list with all commands.
+- `/giff` – posts a random GIF just for fun.
 
-Divirta-se criando novos comandos!
+Have fun creating new commands!

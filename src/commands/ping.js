@@ -1,21 +1,20 @@
 import { SlashCommandBuilder } from 'discord.js';
 
 /**
- * Define o comando `/ping`.
- * Quando ele for usado, o bot vai responder com "Pong" e mostrar o tempo de
- * resposta.
+ * Defines the `/ping` command.
+ * When invoked, the bot replies with "Pong" and shows the response time.
  * @type {import('discord.js').SlashCommandBuilder}
  */
 export const data = new SlashCommandBuilder()
   .setName('ping')
-  .setDescription('Responde com Pong e mostra a latência.');
+  .setDescription('Replies with Pong and shows latency.');
 
 /**
- * Função que roda quando alguém digita `/ping`.
+ * Runs when someone uses `/ping`.
  * @param {import('discord.js').CommandInteraction} interaction
  * @returns {Promise<void>}
  */
 export async function execute(interaction) {
   const latency = Date.now() - interaction.createdTimestamp;
-  await interaction.reply(`🏓 Pong! Tempo de resposta: ${latency}ms`);
+  await interaction.reply(`🏓 Pong! Response time: ${latency}ms`);
 }

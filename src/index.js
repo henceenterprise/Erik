@@ -3,13 +3,13 @@ import { Client, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
 import { readdir } from 'fs/promises';
 
 /**
- * Arquivo principal que inicia o bot. As explicações abaixo usam uma linguagem
- * simples para que qualquer pessoa possa entender o que acontece.
+ * Main file that starts the bot. The explanations below use simple language so
+ * anyone can understand what is happening.
  */
 
 /**
- * Cria o cliente do Discord, que é o nosso bot. Os "intents" dizem ao Discord
- * que tipo de mensagens o bot quer receber.
+ * Creates the Discord client, which is our bot. The intents tell Discord what
+ * kind of messages the bot wants to receive.
  * @type {import('discord.js').Client}
  */
 const client = new Client({
@@ -20,16 +20,16 @@ const client = new Client({
   ]
 });
 
-/** Lista de comandos que o bot conhece. */
+/** List of commands the bot knows. */
 const commands = [];
-/** Guarda as funções que executam cada comando. */
+/** Stores the functions that execute each command. */
 const handlers = new Map();
-// Deixamos a lista acessível para o comando /help mostrar tudo
+// Expose the list so the /help command can show everything
 client.commandsList = commands;
 
 /**
- * Procura na pasta `src/commands` e carrega cada arquivo de comando.
- * Assim o bot sabe o que fazer quando usamos as barras.
+ * Looks in the `src/commands` folder and loads each command file so the bot
+ * knows what to do when using slash commands.
  * @returns {Promise<void>}
  */
 async function loadCommands() {
@@ -49,29 +49,29 @@ async function loadCommands() {
 }
 
 /**
- * Envia para o Discord a lista de comandos para que apareçam no servidor.
+ * Sends the command list to Discord so they appear in the server.
  * @returns {Promise<void>}
  */
 async function deployCommands() {
   const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
   try {
-    console.log('Atualizando comandos slash...');
+    console.log('Updating slash commands...');
     const data = await rest.put(
       Routes.applicationGuildCommands(process.env.CLIENT_ID, process.env.GUILD_ID),
       { body: commands },
     );
-    console.log(`Registrei ${data.length} comandos.`);
+    console.log(`Registered ${data.length} commands.`);
   } catch (err) {
-    console.error('Falha ao registrar comandos:', err);
+    console.error('Failed to register commands:', err);
   }
 }
 
-// Quando o bot termina de iniciar, avisamos no console
+// When the bot finishes starting, log it to the console
 client.once(Events.ClientReady, () =>
-  console.log(`Bot pronto — ${client.user.tag}`)
+  console.log(`Bot ready — ${client.user.tag}`)
 );
 
-// Toda vez que alguém usar um comando, procuramos a função correta
+// Every time someone uses a command, find the correct handler
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return;
   const command = handlers.get(interaction.commandName);
@@ -81,16 +81,16 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 (async () => {
-  // Carrega os comandos e avisa o Discord antes de fazer login
+  // Load the commands and tell Discord before logging in
   await loadCommands();
   await deployCommands();
 
   client
     .login(process.env.DISCORD_TOKEN)
     .then(() => {
-      console.log('Bot iniciado.');
+      console.log('Bot started.');
     })
     .catch(err => {
-      console.error('Falha ao iniciar o bot:', err);
+      console.error('Failed to start the bot:', err);
     });
 })();
