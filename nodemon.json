@@ -1,0 +1,5 @@
+{
+  "watch": ["commands", "index.js"],
+  "ext": "js",
+  "exec": "node deploy-commands.js && node index.js"
+}
