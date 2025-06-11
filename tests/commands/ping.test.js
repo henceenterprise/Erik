@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { execute } from './ping.js';
+import { execute } from '../../src/commands/ping.js';
 
 describe('ping command', () => {
   test('responds with latency information', async () => {
